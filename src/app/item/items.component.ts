@@ -11,14 +11,9 @@ export class ItemsComponent implements OnInit {
   private _player: TNSPlayer;
 
   constructor() {
-    
-  }
-  
-  ngOnInit(): void { 
     this._player = new TNSPlayer();
-    this._player.debug = true;
     this._player.initFromFile({
-      audioFile: '~/audio.mp3', // ~ = app directory
+      audioFile: '~/app/audio.mp3', // ~ = app directory
       loop: false,
       completeCallback: this._trackComplete.bind(this),
       errorCallback: this._trackError.bind(this)
@@ -29,6 +24,10 @@ export class ItemsComponent implements OnInit {
         console.log(`song duration:`, duration);
       });
     });
+  }
+  
+  ngOnInit(): void { 
+    
   }
 
   public togglePlay() {
