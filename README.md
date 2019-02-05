@@ -10,9 +10,9 @@ web technologies to create entirely native mobile experiences. You use XML/HTML,
 platform (iOS and Android) mobile applications. 
 
 
-NativeScript comes in 3 flavors: Vanilla JS, Angular, and Vue. In this little demo I’m going to use Angular. To get start super 
-quickly in NativeScript, you can use the NativeScript Playground, which is a web editor that lets you load a NativeScript 
-application on your device basically immediately. I’m going to use the NativeScript CLI and VSCode.
+NativeScript comes in 3 flavors: Vanilla JS, Angular, and Vue. In this little demo I’m going to use Angular. To get started super 
+quickly in NativeScript, you can use the <a href="https://play.nativescript.org/">NativeScript Playground</a>, which is a web editor that lets you load a NativeScript 
+application on your device basically immediately. I’m going to use the NativeScript CLI and VSCode to demonstrate a more complete development workflow.
 
 The first step is to install NativeScript globally, follow these instructions: https://docs.nativescript.org/start/quick-setup
 
@@ -21,25 +21,25 @@ user, so I’m going to call it party. In this app we are going to integrate a p
 
 `tns create party --ng`
 
-In that command, we are creating an app named party, and instruction the CLI to use the angular template. Once thats created, we 
+In that command, we are creating an app named party, and instructing the CLI to use the angular template. Once thats created, we 
 can run the app right away by opening up an iOS simulator and typing 
 
 `tns run ios`
 
 That will open up our new native application in the iOS simulator. The basic template includes a main view with a ListView listing 
 some soccer players. It also includes a detail view so you can get an example of routing to new views in NativeScript/Angular. 
-NativeScript provides a bunch of useful templates, and also provide a GUI for their CLI called NativeScript Sidekick. I typically 
+NativeScript provides a bunch of useful templates, and also provides a GUI for their CLI called <a href="https://www.nativescript.org/nativescript-sidekick">NativeScript Sidekick</a>. I typically 
 just use the CLI, but the GUI is good for browsing available templates for projects. 
 
 This app we are making is very simple so we won’t need any fancy templates. What I want to do with this app is brighten up your 
-day with some music and confetti, and then add a little surprise. 
+day with a little party on your phone. 
 
 # Layouts
-NativeScript provides a few different layouts to get started organizing your app. You can learn about all of them here. For this 
-app, we are going to use GridLayout. GridLayout is great because it will adapt to the size of the device so your app will work 
-the same on an iPad Pro or some tiny Android device. For this app we aren’t going to use an ActionBar, so we can remove the ActionBar 
-from items.component, change the StackLayout over to a GridLayout and remove the list of soccer players, and lets add a Label so 
-we can be sure we are seeing things correctly. Our item.component.html file looks like this: 
+NativeScript provides a few different layouts to get started organizing your app. You can learn about all of them <a href="https://docs.nativescript.org/ui/layouts/layout-containers">here</a>. For this 
+app, we are going to use `GridLayout`. `GridLayout` is great because it will adapt to the size of the device so your app will work 
+the same on an iPad Pro or some tiny Android device. For this app we aren’t going to use an `ActionBar`, so we can remove the `ActionBar` 
+from `items.component.html`, change the `StackLayout` over to a `GridLayout` and remove the list of soccer players, and lets add a Label so 
+we can be sure we are seeing things correctly. Now our `items.component.html` file looks like this: 
 
 
 ```
@@ -48,7 +48,7 @@ we can be sure we are seeing things correctly. Our item.component.html file look
 </GridLayout>
 ```
 
-Ok this works but doesn’t do much. Lets at least make it look a little nicer. This is a party app, so lets add a disco ball. I downloaded an image and brought it into `App_Resources/iOS`. We can use web images as `src`, but so this app can be offline we downloaded the image and brought it right into our project. So for images in the App Resources folder, we refer to it with this syntax: `res://imagename.png`.
+Ok this works but doesn’t do much. Lets at least make it look a little nicer. This is a party app, so lets add a disco ball. I downloaded an image and brought it into `App_Resources/iOS`. We can use web images as `src`, but so this app can be offline we downloaded the image and brought it right into our project. For images in the App Resources folder, we refer to it with this syntax: `res://imagename.png`.
 
 ```
 <GridLayout class="page">
@@ -59,7 +59,7 @@ Ok this works but doesn’t do much. Lets at least make it look a little nicer. 
 
 
 
-One note on GridLayouts: Any view inside a GridLayout is assigned a column and a row. In this case we havent defined any, so every view inside the GridLayout is currently assigned to column `0` and row `0`. So, since both the `Image` and the `Label` are occupying the same space in the `GridLayout`, they will be stacked on top of each other. So since the `Label` comes after the `Image` in the markup, the `Label` will show up on top of the `Image`. Lets make the `Label` white so we can see it better: `<Label color="white" text="Hello world."></Label>`
+One note on `GridLayouts`: Any view inside a `GridLayout` is assigned a column and a row. In this case we havent defined any, so every view inside the GridLayout is currently assigned to column `0` and row `0`. So, since both the `Image` and the `Label` are occupying the same space in the `GridLayout`, they will be stacked on top of each other. So since the `Label` comes after the `Image` in the markup, the `Label` will show up on top of the `Image`. Lets make the `Label` white so we can see it better: `<Label color="white" text="Hello world."></Label>`
 
 <img src="https://cl.ly/af9740be71dc/Screen%252520Shot%2525202019-02-04%252520at%25252010.44.43%252520AM.png" height="500">
 
@@ -73,7 +73,7 @@ Ok this looks a little funny. What the image tries to do by default is display i
 
 <img src="https://cl.ly/9ae83fb3b067/Screen%252520Shot%2525202019-02-04%252520at%25252010.45.48%252520AM.png" height="500">
 
-Ok definitely better. But those white bars at the top and bottom are ugly, lets get rid of them. NativeScript 5.0 comes with some APIs that make working with iOS Safe Areas a breeze. Layouts are considered an element that should stretch to the edge of the screen. We can see this if we for example add a green background to the GridLayout, the white bars become green. Content, however, are padded from the edges of the device so they dont conflict with the rounded corners, the notch, or the status bar. Images are considered content. In this case, this image is not content that will conflict as we are using it as a background image, so we can tell NativeScript to extend the edges of this image to the edges of the device with the `iosOverflowSafeArea` property:
+Ok definitely better. But those white bars at the top and bottom are ugly, lets get rid of them. NativeScript 5 comes with some APIs that make working with iOS Safe Areas a breeze. Layouts are considered an element that should stretch to the edge of the screen. We can see this if we for example add a green background to the `GridLayout`, the white bars become green. Content, however, are padded from the edges of the device so they dont conflict with the rounded corners, the notch, or the status bar. Images are considered content. In this case, this image is not content that will conflict as we are using it as a background image, so we can tell NativeScript to extend the edges of this image to the edges of the device with the `iosOverflowSafeArea` property:
 
 
 ```
@@ -96,7 +96,7 @@ To install a plugin:
 
 Then follow the plugin's instructions to incorporate into your project. If you visit the plugin's npm package page or the github page, the instructions are in the ReadMe (https://github.com/nstudio/nativescript-audio). 
 
-We can literally copy the demo into our `items.component.ts` file. The demo includes some useful logging for debugging and everything we need to play our audio file. I've placed the audio file in the app folder, so we reference the file in the `init` method. Here's the whole file with the audio code all set up:
+We can literally copy the exanoke cide into our `items.component.ts` file. The example includes some useful logging for debugging and everything we need to play our audio file. I've placed the audio file in the app folder, so we reference the file in the `initFromFile` method. Here's the whole file with the audio code all set up:
 
 
 ```
@@ -161,7 +161,7 @@ start the party:
 
 Notice the new button there that calls the method in the class. I've added some inline styling just to keep things brief, but typically everything should be kept in `app.css`, or in `scss` files. 
 
-Before we move on, lets organize our view a little different. I want the button at the bottom so its easy to press if you have a large device and are holding it with one hand. We can use the GridLayout properties for this. We can put content in a GridView in columns and rows. In this case we're just going to have one column, but two rows. The top row which is most of the device, and then a row at the bottom just big enough for the button.
+Before we move on, lets organize our view a little different. I want the button at the bottom so its easy to press if you have a large device and are holding it with one hand. We can use the `GridLayout` properties for this. We can put content in a GridView in columns and rows. In this case we're just going to have one column, but two rows. The top row which is most of the device, and then a row at the bottom just big enough for the button.
 
 `<GridLayout rows="*, auto">`
 
@@ -256,7 +256,7 @@ and we can update our button like this:
 The best thing about NativeScript is its unfettered access to native APIs. That means that when Google or Apple releases a new version of their mobile operating system, you have access to any fancy new features immediately. No waiting for the framework to expose them or even for the community to create a plugin, you can access platform specific APIs directly in your typescript code. It is truly amazing. 
 
 ---
-You can also get TypeScript definitions for all these APIs, meaning you can intellisense for every available API on either platform. Run `npm i tns-platform-declarations`, that installs the declarations in your `node_modules` folder. Then, create a file at your project root called `references.d.ts` with the following content: 
+You can also get TypeScript definitions for all these APIs, meaning you get intellisense for every available API on either platform. Run `npm i tns-platform-declarations`, that installs the declarations in your `node_modules` folder. Then, create a file at your project root called `references.d.ts` with the following content: 
 ```
 /// <reference path="node_modules/tns-platform-declarations/android.d.ts" />
 /// <reference path="node_modules/tns-platform-declarations/ios.d.ts" />
@@ -284,7 +284,7 @@ then in `ngOnInit`:
 
 `if (isIOS && !(parseFloat(device.osVersion) < 10)) this.buzz = UISelectionFeedbackGenerator.new();`
 
-Now we can call methods off that new native iOS `UISelectionFeedbackGenerator` class.
+That checks if the device is an iOS device running iOS 10 or higher. Now we can call methods off that new native iOS `UISelectionFeedbackGenerator` class.
 
 We can use intellisense to see all available methods, but since most iOS classes extend NSObject, there are a ton of methods available so its hard to find which ones are specific to this class. So all we have to do is head over to Apple's documentation: https://developer.apple.com/documentation/uikit/uifeedbackgenerator
 
