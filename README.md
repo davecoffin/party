@@ -1,14 +1,13 @@
 # What Is NativeScript
-NativeScript is an open source framework for creating native mobile apps for iOS and Android. It allows web developers to use their web technology expertise to access native device APIs, hardware, and UI controls that deliver performant and elegant mobile experiences.
 
-NativeScript comes in 3 flavors: Vanilla JS, Angular, and Vue. In this little demo I’m going to use Angular. To get started super 
-quickly in NativeScript, you can use the <a href="https://play.nativescript.org/">NativeScript Playground</a>, which is a web editor that lets you load a NativeScript 
-application on your device basically immediately. I’m going to use the NativeScript CLI and VSCode to demonstrate a more complete development workflow.
+[NativeScript](https://www.nativescript.org/) is an open source framework developed by [Progress](https://www.progress.com/) for creating native mobile apps for iOS and Android. It allows web developers to use their web technology expertise to access native device APIs, hardware, and UI controls that deliver performant and elegant mobile experiences.
+
+NativeScript currently comes in 4 flavors: JavaScript, TypeScript, Angular, or Vue. In this little demo I'm going to use [Angular](https://angular.io/). To get started quickly in NativeScript, you can use the <a href="https://play.nativescript.org/">NativeScript Playground</a>, which is a web editor that lets you load a NativeScript application on your device basically immediately. I'm going to use the NativeScript CLI and VSCode to demonstrate a more complete development workflow.
 
 The first step is to install NativeScript globally, follow these instructions: https://docs.nativescript.org/start/quick-setup
 
 Once thats all set up, you can use the NativeScript CLI to create a new project. My app is going to throw a little party for the 
-user, so I’m going to call it `party`. In this app we are going to integrate a plugin, do some animations, and access some native iOS APIs. 
+user, so I'm going to call it `party`. In this app we are going to integrate a plugin, do some animations, and access some native iOS APIs. 
 
 `tns create party --ng`
 
@@ -22,13 +21,13 @@ some soccer players. It also includes a detail view so you can get an example of
 NativeScript provides a bunch of useful templates, and also provides a GUI for their CLI called <a href="https://www.nativescript.org/nativescript-sidekick">NativeScript Sidekick</a>. I typically 
 just use the CLI, but the GUI is good for browsing available templates for projects. 
 
-This app we are making is very simple so we won’t need any fancy templates. What I want to do with this app is brighten up your 
+This app we are making is very simple so we won't need any fancy templates. What I want to do with this app is brighten up your 
 day with a little party on your phone. 
 
 # Layouts
 NativeScript provides a few different layouts to get started organizing your app. You can learn about all of them <a href="https://docs.nativescript.org/ui/layouts/layout-containers">here</a>. For this 
 app, we are going to use `GridLayout`. `GridLayout` is great because it will adapt to the size of the device so your app will work 
-the same on an iPad Pro or some tiny Android device. For this app we aren’t going to use an `ActionBar`, so we can remove the `ActionBar` 
+the same on an iPad Pro or some tiny Android device. For this app we aren't going to use an `ActionBar`, so we can remove the `ActionBar` 
 from `items.component.html`, change the `StackLayout` over to a `GridLayout` and remove the list of soccer players, and lets add a Label so 
 we can be sure we are seeing things correctly. Now our `items.component.html` file looks like this: 
 
@@ -39,7 +38,7 @@ we can be sure we are seeing things correctly. Now our `items.component.html` fi
 </GridLayout>
 ```
 
-Ok this works but doesn’t do much. Lets at least make it look a little nicer. This is a party app, so lets add a disco ball. I downloaded an image and brought it into `App_Resources/iOS`. We can use web images as `src`, but so this app can be offline we downloaded the image and brought it right into our project. For images in the App Resources folder, we refer to it with this syntax: `res://imagename.png`.
+Ok this works but doesn't do much. Lets at least make it look a little nicer. This is a party app, so lets add a disco ball. I downloaded an image and brought it into `App_Resources/iOS`. We can use web images as `src`, but so this app can be offline we downloaded the image and brought it right into our project. For images in the App Resources folder, we refer to it with this syntax: `res://imagename.png`.
 
 ```
 <GridLayout class="page">
@@ -320,4 +319,6 @@ Link to complete application: <a href="https://github.com/davecoffin/party">Gith
 This app is pretty silly, but using these principles you can create apps that can do anything. There are lots of great tools out there to help your development process, and NativeScript has a great community of developers ready and willing to help people who are new to the platform. 
 
 Reach out to us with any questions or comments!
+
+Written by [Dave Coffin](https://github.com/davecoffin) of [nStudio](https://nstudio.io/).
 
