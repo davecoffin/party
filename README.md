@@ -4,8 +4,7 @@ in my head that I would never act on grew exponentially. Part of why I would nev
 skills to make sophisticated applications. I was a web developer. I knew javascript, HTML, some PHP, basic tools for creating 
 basic websites. I had a great idea, but I knew it didn’t make sense unless it was an app on mobile phones. 
 
-I started fooling around with Cordova. I realized quickly that I didn’t want to create hybrid mobile apps, because I’ve used 
-them before and I hate them. They don’t feel right. It was then that I discovered NativeScript. NativeScript lets you utilize 
+I started fooling around with Cordova. I realized quickly that I didn’t want to create hybrid mobile apps, I wanted something that felt more like a truly native mobile experience. It was then that I discovered NativeScript. NativeScript lets you utilize 
 web technologies to create entirely native mobile experiences. You use XML/HTML, CSS, and JavaScript/TypeScript to create cross 
 platform (iOS and Android) mobile applications. 
 
