@@ -320,8 +320,11 @@ Ok now we are ready to submit this to the App Store and make one million dollars
 
 Although they may not accept it because it does nothing useful and violates a bunch of copyrights. 
 
+I recommend building this app before watching the final product, but if you must here's our final app in all its glory: <a href="https://cl.ly/011509f127cf">Video of App</a>
+
 # Conclusion
 
 This app is pretty silly, but using these principles you can create apps that can do anything. There are lots of great tools out there to help your development process, and NativeScript has a great community of developers ready and willing to help people who are new to the platform. 
 
 Reach out to us with any questions or comments!
+
