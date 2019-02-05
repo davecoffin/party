@@ -1,13 +1,5 @@
 # What Is NativeScript
-When I became a new dad, I had a lot of ideas for how to make certain aspects of parenting easier. So my portfolio of ideas 
-in my head that I would never act on grew exponentially. Part of why I would never act on them is I didn’t believe I had the 
-skills to make sophisticated applications. I was a web developer. I knew javascript, HTML, some PHP, basic tools for creating 
-basic websites. I had a great idea, but I knew it didn’t make sense unless it was an app on mobile phones. 
-
-I started fooling around with Cordova. I realized quickly that I didn’t want to create hybrid mobile apps, I wanted something that felt more like a truly native mobile experience. It was then that I discovered NativeScript. NativeScript lets you utilize 
-web technologies to create entirely native mobile experiences. You use XML/HTML, CSS, and JavaScript/TypeScript to create cross 
-platform (iOS and Android) mobile applications. 
-
+NativeScript is an open source framework for creating native mobile apps for iOS and Android. It allows web developers to use their web technology expertise to access native device APIs, hardware, and UI controls that deliver performant and elegant mobile experiences.
 
 NativeScript comes in 3 flavors: Vanilla JS, Angular, and Vue. In this little demo I’m going to use Angular. To get started super 
 quickly in NativeScript, you can use the <a href="https://play.nativescript.org/">NativeScript Playground</a>, which is a web editor that lets you load a NativeScript 
@@ -16,7 +8,7 @@ application on your device basically immediately. I’m going to use the NativeS
 The first step is to install NativeScript globally, follow these instructions: https://docs.nativescript.org/start/quick-setup
 
 Once thats all set up, you can use the NativeScript CLI to create a new project. My app is going to throw a little party for the 
-user, so I’m going to call it party. In this app we are going to integrate a plugin, do some animations, and access some native iOS APIs. 
+user, so I’m going to call it `party`. In this app we are going to integrate a plugin, do some animations, and access some native iOS APIs. 
 
 `tns create party --ng`
 
