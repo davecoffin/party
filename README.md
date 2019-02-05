@@ -320,7 +320,7 @@ Ok now we are ready to submit this to the App Store and make one million dollars
 
 Although they may not accept it because it does nothing useful and violates a bunch of copyrights. 
 
-I recommend building this app before watching the final product, but if you must here's our final app in all its glory: <a href="https://cl.ly/011509f127cf">Video of App</a>
+I recommend building this app before watching the final product, but if you must here's our final app in all its glory: <a href="https://cl.ly/18f5e1bbbca8">Video of App</a>
 
 # Conclusion
 
