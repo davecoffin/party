@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { TNSPlayer } from 'nativescript-audio';
+import { isIOS, device } from 'tns-core-modules/platform';
 
 @Component({
   selector: "ns-items",
@@ -9,6 +10,10 @@ import { TNSPlayer } from 'nativescript-audio';
 export class ItemsComponent implements OnInit {
 
   private _player: TNSPlayer;
+  @ViewChild('animateImg') animageImgEl: ElementRef;
+  public img;
+  public partying: boolean = false;
+  private buzz: UISelectionFeedbackGenerator;
 
   constructor() {
     this._player = new TNSPlayer();
@@ -27,16 +32,19 @@ export class ItemsComponent implements OnInit {
   }
   
   ngOnInit(): void { 
-    
+    this.img = this.animageImgEl.nativeElement;
+    if (isIOS && !(parseFloat(device.osVersion) < 10)) this.buzz = UISelectionFeedbackGenerator.new();
   }
 
   public togglePlay() {
-
-    console.log(this._player);
     if (this._player.isAudioPlaying()) {
       this._player.pause();
+      this.partying = false;
+      this.stopAnimation();
     } else {
       this._player.play();
+      this.partying = true;
+      this.startAnimation();
     }
   }
 
@@ -51,5 +59,25 @@ export class ItemsComponent implements OnInit {
     console.log('extra info on the error:', args.extra);
   }
 
+  private animateInterval;
+  startAnimation() {
+    this.animateInterval = setInterval(() => {
+      if (this.buzz) this.buzz.selectionChanged()
+      this.img.animate({
+        scale: {x: 2, y: 2},
+        rotate: 45,
+        duration: 270
+      }).then(() => {
+        this.img.animate({
+          scale: {x: 1, y: 1},
+          rotate: 0,
+          duration: 270
+        }).then(() => {}, err => {})
+      }, err => {})
+    }, 540)
+  }
 
+  stopAnimation() {
+    clearInterval(this.animateInterval);
+  }
 }

@@ -48,11 +48,11 @@ we can be sure we are seeing things correctly. Our item.component.html file look
 </GridLayout>
 ```
 
-Ok this works but doesn’t do much. Lets at least make it look a little nicer. This is a party app, so lets add a disco ball. 
+Ok this works but doesn’t do much. Lets at least make it look a little nicer. This is a party app, so lets add a disco ball. I downloaded an image and brought it into `App_Resources/iOS`. We can use web images as `src`, but so this app can be offline we downloaded the image and brought it right into our project. So for images in the App Resources folder, we refer to it with this syntax: `res://imagename.png`.
 
 ```
 <GridLayout class="page">
-  <Image src="https://thump-images.vice.com/images/articles/meta/2015/06/04/meet-me-under-the-disco-ball-a-history-of-nightlifes-most-enduring-symbol-1433388224.jpg"></Image>
+  <Image src="res://disco.jpg"></Image>
   <Label color="white" text="Hello world."></Label>
 </GridLayout>
 ```
@@ -66,7 +66,7 @@ One note on GridLayouts: Any view inside a GridLayout is assigned a column and a
 Ok this looks a little funny. What the image tries to do by default is display it at the size of its container (in this case the whole screen), but in its original aspect ratio. I want this image to be like a background image, so we can use the `stretch` property on the `Image` to get what we want:
 
 ```
-<Image stretch="aspectFill" src="https://thump-images.vice.com/images/articles/meta/2015/06/04/meet-me-under-the-disco-ball-a-history-of-nightlifes-most-enduring-symbol-1433388224.jpg"></Image>
+<Image stretch="aspectFill" src="res://disco.jpg"></Image>
 ```
 
 `stretch="aspectFill"` will fill the image to its container, but not stretch it out of its aspect ratio. 
@@ -77,7 +77,7 @@ Ok definitely better. But those white bars at the top and bottom are ugly, lets 
 
 
 ```
-<Image iosOverflowSafeArea="true" stretch="aspectFill" src="https://thump-images.vice.com/images/articles/meta/2015/06/04/meet-me-under-the-disco-ball-a-history-of-nightlifes-most-enduring-symbol-1433388224.jpg"></Image>
+<Image iosOverflowSafeArea="true" stretch="aspectFill" src="res://disco.jpg"></Image>
 ```
 
 <img src="https://cl.ly/32e33d2c9750/Screen%252520Shot%2525202019-02-04%252520at%25252010.50.08%252520AM.png" height="500">
@@ -100,7 +100,7 @@ We can literally copy the demo into our `items.component.ts` file. The demo incl
 
 
 ```
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { TNSPlayer } from 'nativescript-audio';
 @Component({
   selector: "ns-items",
@@ -154,9 +154,174 @@ start the party:
 
 ```
 <GridLayout class="page">
-  <Image iosOverflowSafeArea="true" stretch="aspectFill" src="https://thump-images.vice.com/images/articles/meta/2015/06/04/meet-me-under-the-disco-ball-a-history-of-nightlifes-most-enduring-symbol-1433388224.jpg"></Image>
+  <Image iosOverflowSafeArea="true" stretch="aspectFill" src="res://disco.jpg"></Image>
   <Button text="Let's Party" (tap)="togglePlay();" style="height: 50; width: 200; font-weight: bold; color: white; text-align: center; background-color: purple; padding: 10; border-radius: 5;"></Button>
 </GridLayout>
 ```
 
 Notice the new button there that calls the method in the class. I've added some inline styling just to keep things brief, but typically everything should be kept in `app.css`, or in `scss` files. 
+
+Before we move on, lets organize our view a little different. I want the button at the bottom so its easy to press if you have a large device and are holding it with one hand. We can use the GridLayout properties for this. We can put content in a GridView in columns and rows. In this case we're just going to have one column, but two rows. The top row which is most of the device, and then a row at the bottom just big enough for the button.
+
+`<GridLayout rows="*, auto">`
+
+That creates one row where `*` means it will use all available space for that row, and `auto` means the content within row #2 will determine how tall the row is. The first row is row `0`, so we put the `Button` in row `1`.
+
+```
+<GridLayout rows="*, auto" class="page">
+  <Image iosOverflowSafeArea="true" stretch="aspectFill" src="res://disco.jpg"></Image>
+  <Button row="1" text="Let's Party" (tap)="togglePlay();" style="height: 50; width: 200; font-weight: bold; color: white; text-align: center; background-color: purple; padding: 10; border-radius: 5;"></Button>
+</GridLayout>
+```
+<img src="https://cl.ly/ecc9124529c9/Screen%252520Shot%2525202019-02-05%252520at%25252010.11.55%252520AM.png" height="500" />
+
+Ok cool, but I dont want it to be white behind the button. Whats happening is the `Image` is automatically being placed in row `0` since we didn't specify a row. We want it to *span* across both rows, so we use `rowSpan`
+
+`<Image rowSpan="2" iosOverflowSafeArea="true" stretch="aspectFill" src="res://disco.jpg"></Image>`
+
+<img src="https://cl.ly/9df8d9002fc6/Screen%252520Shot%2525202019-02-05%252520at%25252010.14.17%252520AM.png" height="500" />
+
+Noice.
+
+# Animations
+The music is cool, but lets add some dancing. Animations are awesome and fun in NativeScript. Used correctly, they make apps for user friendly and engaging. I brought an image into our app called `animateimg.png`. Lets drop it into the top row and give it a size.
+
+```
+<GridLayout rows="*, auto" class="page">
+  <Image iosOverflowSafeArea="true" stretch="aspectFill" src="res://disco.jpg"></Image>
+
+  <Image #animateImg src="res://animateimg.png" width="50%"></Image>
+
+  <Button row="1" text="Let's Party" (tap)="togglePlay();" style="height: 50; width: 200; font-weight: bold; color: white; text-align: center; background-color: purple; padding: 10; border-radius: 5;"></Button>
+</GridLayout>
+```
+
+We'll use `ViewChild` to grab the image and animate it. 
+
+```
+@ViewChild('animateImg') animageImgEl: ElementRef;
+public img;
+```
+
+then in `ngOnInit`: 
+```
+ngOnInit(): void { 
+  this.img = this.animageImgEl.nativeElement;
+}
+```
+
+Now we can animate `this.img`. I've added two methods to start the animation then stop it. I added the call to start the animation in our `togglePlay` method, as well as added a boolean to know if we're partying so we can toggle the text in our button: 
+
+```
+public togglePlay() {
+  if (this._player.isAudioPlaying()) {
+    this._player.pause();
+    this.partying = false;
+    this.stopAnimation();
+  } else {
+    this._player.play();
+    this.partying = true;
+    this.startAnimation();
+  }
+}
+
+
+private animateInterval;
+startAnimation() {
+  this.animateInterval = setInterval(() => {
+    this.img.animate({
+      scale: {x: 2, y: 2},
+      rotate: 45,
+      duration: 270
+    }).then(() => {
+      this.img.animate({
+        scale: {x: 1, y: 1},
+        rotate: 0,
+        duration: 270
+      }).then(() => {}, err => {})
+    }, err => {})
+  }, 540)
+}
+
+stopAnimation() {
+  clearInterval(this.animateInterval);
+}
+```
+
+and we can update our button like this:
+
+`<Button row="1" [text]="partying ? 'I Need A Break' : 'Let\'s Party'" (tap)="togglePlay();" style="height: 50; width: 200; font-weight: bold; color: white; text-align: center; background-color: purple; padding: 10; border-radius: 5;"></Button>`
+
+# Bonus Exercise
+The best thing about NativeScript is its unfettered access to native APIs. That means that when Google or Apple releases a new version of their mobile operating system, you have access to any fancy new features immediately. No waiting for the framework to expose them or even for the community to create a plugin, you can access platform specific APIs directly in your typescript code. It is truly amazing. 
+
+---
+You can also get TypeScript definitions for all these APIs, meaning you can intellisense for every available API on either platform. Run `npm i tns-platform-declarations`, that installs the declarations in your `node_modules` folder. Then, create a file at your project root called `references.d.ts` with the following content: 
+```
+/// <reference path="node_modules/tns-platform-declarations/android.d.ts" />
+/// <reference path="node_modules/tns-platform-declarations/ios.d.ts" />
+```
+Now you can access these APIs right in your typescript file, for example you can type `UISelectionFeedbackGenerator` and TypeScript compiler wont compain :)
+
+---
+
+Ok moving on....
+
+This party stimulates your eyes and ears, but what about some haptic feedback? As of iOS 10, iOS provides some cool APIs for creating cool little buzzes on compatible devices. I use this in a lot of my apps, for example I have an app with a custom modal that you can drag to dismiss. If you drag it a tiny bit and let go, it will animate back to its open position, but if you drag it a little further, when you let go it will dismiss. This saves you having to reach for the close button. When you've dragged it far enough where it will dismiss if you let go, I give the phone a little buzz to let you know.
+
+You'll need to run this app on a physical device to feel this in action.
+Here's what we're going to add:
+
+We need to import a couple helpers: 
+
+`import { isIOS, device } from 'tns-core-modules/platform';`
+
+
+
+`public buzz: UISelectionFeedbackGenerator;`
+
+then in `ngOnInit`: 
+
+`if (isIOS && !(parseFloat(device.osVersion) < 10)) this.buzz = UISelectionFeedbackGenerator.new();`
+
+Now we can call methods off that new native iOS `UISelectionFeedbackGenerator` class.
+
+We can use intellisense to see all available methods, but since most iOS classes extend NSObject, there are a ton of methods available so its hard to find which ones are specific to this class. So all we have to do is head over to Apple's documentation: https://developer.apple.com/documentation/uikit/uifeedbackgenerator
+
+You'll notice there are a few classes to extend, we chose `UISelectionFeedbackGenerator` because its a tiny little buzz, we don't want to freak your phone out. The method available on that class is `selectionChanged()`. This is the beauty of intellisense, as we type, we can access to the class methods since we typed it correctly: 
+
+<img src="https://cl.ly/6a6b86bdd4de/Screen%252520Shot%2525202019-02-05%252520at%25252010.44.08%252520AM.png" width="300" />
+
+
+We are going to drop this in our animation method since its runs on an interval:
+```
+startAnimation() {
+  this.animateInterval = setInterval(() => {
+    if (this.buzz) this.buzz.selectionChanged()
+    this.img.animate({
+      scale: {x: 2, y: 2},
+      rotate: 45,
+      duration: 270
+    }).then(() => {
+      this.img.animate({
+        scale: {x: 1, y: 1},
+        rotate: 0,
+        duration: 270
+      }).then(() => {}, err => {})
+    }, err => {})
+  }, 540)
+}
+```
+
+
+Ok now we are ready to submit this to the App Store and make one million dollars. 
+
+<img src="https://i.ytimg.com/vi/aGKHZdGjfhs/hqdefault.jpg" width="200">
+
+Although they may not accept it because it does nothing useful and violates a bunch of copyrights. 
+
+# Conclusion
+
+This app is pretty silly, but using these principles you can create apps that can do anything. There are lots of great tools out there to help your development process, and NativeScript has a great community of developers ready and willing to help people who are new to the platform. 
+
+Reach out to us with any questions or comments!
